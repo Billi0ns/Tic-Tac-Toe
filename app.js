@@ -63,7 +63,12 @@ const gameBoard = (() => {
 
     if (winner) {
       resultPage.style.display = 'grid';
-      let winnerName = (gameTurn === 'cross') ? player1.textContent : player2.textContent;
+      let winnerName;
+      if (playerBtn.style.display === '') {
+        winnerName = (gameTurn === 'cross') ? 'X' : 'O';
+      } else {
+        winnerName = (gameTurn === 'cross') ? player1.textContent : player2.textContent;
+      }
       document.getElementById('result__winner').textContent = `${winnerName} Win!`;
     }
 
