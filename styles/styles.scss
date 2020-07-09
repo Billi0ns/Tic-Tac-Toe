@@ -1,0 +1,263 @@
+// CSS Reset
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+$tile-size: 10rem;
+$page-background-color: #2fbdac;
+$primary-color: #545454;
+$secondary-color: #f2ebd4;
+
+body {
+    background-color: $page-background-color;
+}
+
+*:focus:not(.focus-visible) {
+  outline: none;
+}
+
+// Header   
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+    font-size: 4.5rem;
+    font-weight: 600;
+    color: $primary-color;
+    text-transform: uppercase;
+}
+
+// Container 
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+// Player 
+.player {
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: $primary-color;
+    position: relative;
+    width: auto;
+    min-width: 6rem;
+    height: auto;
+    padding-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.player1::before, 
+.player1::after,
+.player2::before,
+.player2::after {
+    top: -8rem !important;
+}
+
+// Board Setup
+.board {
+    //width: 100vw;
+    //height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: center;
+    align-content: center;
+    padding: 0 15rem;
+}
+
+.tile {
+    width: $tile-size;
+    height: $tile-size;
+    border: rgb(47, 161, 146) 2px solid;
+    position: relative;
+    cursor: pointer;
+}
+
+.tile:nth-of-type(1),
+.tile:nth-of-type(2),
+.tile:nth-of-type(3) {
+    border-top: none;
+}
+
+.tile:nth-of-type(1),
+.tile:nth-of-type(4),
+.tile:nth-of-type(7) {
+    border-left: none;
+}
+
+.tile:nth-of-type(3),
+.tile:nth-of-type(6),
+.tile:nth-of-type(9) {
+    border-right: none;
+}
+
+.tile:nth-of-type(7),
+.tile:nth-of-type(8),
+.tile:nth-of-type(9) {
+    border-bottom: none;
+}
+
+// Token Setup
+.tile.cross::before,
+.tile.cross::after,
+.player1::before, 
+.player1::after, 
+.board.cross .tile:not(.cross):not(.circle):not(.rmHover):hover::before,
+.board.cross .tile:not(.cross):not(.circle):not(.rmHover):hover::after {
+    content: '';
+    width: 0.05 * $tile-size;
+    height: 0.5 * $tile-size;
+    background: $primary-color;
+    position: absolute;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.tile.cross::before,
+.player1::before, 
+.board.cross .tile:hover::before {
+    transform: rotate(45deg);
+}
+
+.tile.cross::after,
+.player1::after, 
+.board.cross .tile:hover::after {
+    transform: rotate(-45deg);
+}
+
+.tile.circle::before,
+.tile.circle::after,
+.player2::before,
+.player2::after,
+.board.circle .tile:not(.cross):not(.circle):hover::before,
+.board.circle .tile:not(.cross):not(.circle):hover::after {
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.tile.circle::before,
+.player2::before,
+.board.circle .tile:not(.cross):not(.circle):not(.rmHover):hover::before {
+    width: 0.45 * $tile-size;
+    height: 0.45 * $tile-size;
+    background: $secondary-color;
+}
+
+.tile.circle::after,
+.player2::after,
+.board.circle .tile:not(.cross):not(.circle):not(.rmHover):hover::after {
+    width: 0.35 * $tile-size;
+    height: 0.35 * $tile-size;
+    background: $page-background-color;
+}
+
+// Hover Effect
+.tile.cross:hover,
+.tile.circle:hover,
+.tile.rmHover {
+    cursor: not-allowed;
+}
+
+// Buttons
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+}
+
+#restartBtn,
+#playerBtn {
+    margin: 2rem;
+    font-size: 1.5rem;
+    border-radius: .8rem;
+    padding: 1rem 1.5rem;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:active {
+        transform: translateY(1.5px);
+    }
+
+    &:hover {
+        box-shadow: 0 0  5px 3px rgba(0, 0, 0, 0.2);
+        
+    }
+}
+
+#restartBtn {
+    background: $secondary-color;
+}
+
+#playerBtn {
+    background: $primary-color;
+    color: $secondary-color;
+}
+
+// Result Page
+.result {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    display: none;
+}
+
+.result__winner {
+    color: white;
+    font-size: 6rem;
+    padding-top: 20rem;
+}
+
+.restartBtn {
+    width: auto;
+    margin: 0 auto;
+    font-size: 3rem;
+    padding: .5rem;
+}
+
+@media screen and (max-width: 830px) {
+    .board {
+        padding: 0;
+    }
+
+    .player,
+    #playerBtn {
+        display: none;
+    }
+
+    .result__winner {
+        font-size: 4rem;
+    }
+}
